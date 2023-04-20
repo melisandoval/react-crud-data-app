@@ -10,8 +10,8 @@ Antes de poder ejecutar el proyecto, es necesario que tengas instalado [Node.js]
 
 ### Instalación
 
-- Clona el repositorio en tu máquina local.
-- Navega al directorio del proyecto.
+- Clona el repositorio en tu máquina local usando `git clone https://github.com/melisandoval/react-crud-data-app.git`.
+- Navega al directorio del proyecto usando `cd react-crud-data-app`.
 - Ejecuta `npm install` para instalar las dependencias.
 
 ### Ejecución
