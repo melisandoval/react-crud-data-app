@@ -44,7 +44,7 @@ export function SearchForm({ handleSetSearchTerms }) {
     <section className="card">
       <div className="card-header d-flex align-items-center">
         <SearchSVG />
-        <h3 className="pt-2 px-2">Encontrar cliente:</h3>
+        <h3 className="pt-2 px-2">Buscar clientes:</h3>
       </div>
 
       <div className="card-body px-md-5">
