@@ -85,22 +85,12 @@ export function CustomerFormModal(props) {
             <Col xs="auto">
               <Form.Group className="mb-3" controlId="company">
                 <Form.Label>País</Form.Label>
-                {/* <Form.Control
-                  type="text"
-                  placeholder="España"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  autoComplete="off"
-                /> */}
 
                 <Form.Select
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
                 >
                   <option>Elige el país</option>
-                  {/* <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option> */}
                   {countryNamesList.map((countryName, index) => (
                     <option key={index}>{countryName}</option>
                   ))}
