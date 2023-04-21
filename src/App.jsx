@@ -6,6 +6,7 @@ import { DataTable } from "./components/DataTable";
 import { getCustomers } from "./supabaseAPI";
 import { useEffect } from "react";
 import Alert from "react-bootstrap/Alert";
+import Spinner from "react-bootstrap/Spinner";
 
 function App() {
   const [searchTerms, setSearchTerms] = useState(null);
@@ -49,7 +50,11 @@ function App() {
       <SearchForm handleSetSearchTerms={handleSetSearchTerms} />
 
       <section className="pt-5">
-        {searchTerms && pending && <p>Pending...</p>}
+        {searchTerms && pending && (
+          <div className="text-center">
+            <Spinner animation="border" variant="primary" />
+          </div>
+        )}
 
         {searchTerms && !pending && !data && (
           <Alert variant="light" className="text-center">
