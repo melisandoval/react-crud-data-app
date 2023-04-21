@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { useState } from "react";
 import { countryNamesList } from "../utils";
+import { useEffect } from "react";
 
 export function CustomerFormModal(props) {
   const [firstName, setFirstName] = useState("");
@@ -13,6 +14,18 @@ export function CustomerFormModal(props) {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [country, setCountry] = useState("");
+
+  useEffect(() => {
+    console.log(props.customer);
+
+    if (props.customer) {
+      setFirstName(props.customer.firstName);
+      setLastName(props.customer.lastName);
+      setEmail(props.customer.email);
+      setCompany(props.customer.company);
+      setCountry(props.customer.country);
+    }
+  }, [props.customer]);
 
   return (
     <Modal

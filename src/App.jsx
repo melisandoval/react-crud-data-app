@@ -16,7 +16,7 @@ function App() {
   const [data, setData] = useState(null);
   const [pending, setPending] = useState(false);
   const [showCustomerFormModal, setShowCustomerFormModal] = useState(false);
-  const [customerId, setCustomerId] = useState(null);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   const getData = async (searchTerms) => {
     try {
@@ -54,18 +54,21 @@ function App() {
     setSearchTerms(null);
   };
 
-  const handleShowCustomerFormModal = (id) => {
+  const handleShowCustomerFormModal = (customer) => {
     setShowCustomerFormModal(true);
 
-    if (id) {
-      setCustomerId(id);
+    if (customer) {
+      setSelectedCustomer(customer);
     }
   };
 
   const handleCustomerFormModalSubmit = () => {
     console.log("se llama a handleCustomerFormModalSubmit!!");
     setShowCustomerFormModal(false);
+    setSelectedCustomer(null);
   };
+
+  const customerModalTitle = "Datos del cliente:";
 
   return (
     <main className="min-vh-100 pt-5 p-4 container-lg">
@@ -79,9 +82,10 @@ function App() {
       </Button>
 
       <CustomerFormModal
-        title={customerId ? "Editar cliente" : "Datos del nuevo cliente:"}
+        title={customerModalTitle}
         show={showCustomerFormModal}
         onHide={handleCustomerFormModalSubmit}
+        customer={selectedCustomer}
       />
 
       <SearchForm
@@ -106,7 +110,7 @@ function App() {
         {searchTerms && data && (
           <DataTable
             data={data}
-            handleEditRowModal={handleShowCustomerFormModal}
+            handleEditCustomer={handleShowCustomerFormModal}
           />
         )}
       </section>

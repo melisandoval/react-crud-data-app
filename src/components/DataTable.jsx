@@ -6,7 +6,7 @@ import { EditIconSVG } from "../assets/svg/EditIconSVG";
 import { DeleteIconSVG } from "../assets/svg/DeleteIconSVG";
 
 // eslint-disable-next-line react/prop-types
-export function DataTable({ data, handleEditRowModal }) {
+export function DataTable({ data, handleEditCustomer }) {
   const tableHead = (
     <tr>
       <th>Nombre</th>
@@ -19,29 +19,40 @@ export function DataTable({ data, handleEditRowModal }) {
   );
 
   // eslint-disable-next-line react/prop-types
-  const tableBody = data.map((customer) => (
-    <tr key={customer.id}>
-      <td>{customer.first}</td>
-      <td>{customer.last}</td>
-      <td>{customer.email}</td>
-      <td>{customer.company}</td>
-      <td>{customer.country}</td>
-      <td className="d-flex">
-        <Button
-          variant="secondary"
-          className="m-1"
-          onClick={() => {
-            handleEditRowModal(customer.id);
-          }}
-        >
-          <EditIconSVG />
-        </Button>
-        <Button variant="secondary" className="m-1">
-          <DeleteIconSVG />
-        </Button>
-      </td>
-    </tr>
-  ));
+  const tableBody = data.map((element) => {
+    const customer = {
+      id: element.id,
+      firstName: element.first,
+      lastName: element.last,
+      email: element.email,
+      company: element.company,
+      country: element.country,
+    };
+
+    return (
+      <tr key={customer.id}>
+        <td>{customer.firstName}</td>
+        <td>{customer.lastName}</td>
+        <td>{customer.email}</td>
+        <td>{customer.company}</td>
+        <td>{customer.country}</td>
+        <td className="d-flex">
+          <Button
+            variant="secondary"
+            className="m-1"
+            onClick={() => {
+              handleEditCustomer(customer);
+            }}
+          >
+            <EditIconSVG />
+          </Button>
+          <Button variant="secondary" className="m-1">
+            <DeleteIconSVG />
+          </Button>
+        </td>
+      </tr>
+    );
+  });
 
   return (
     <section className="my-5 mx-2">
