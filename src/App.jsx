@@ -7,11 +7,15 @@ import { getCustomers } from "./supabaseAPI";
 import { useEffect } from "react";
 import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
+import Button from "react-bootstrap/Button";
+import { AddIconSVG } from "./assets/svg/AddIconSVG";
+import { CustomerFormModal } from "./components/CustomerFormModal";
 
 function App() {
   const [searchTerms, setSearchTerms] = useState(null);
   const [data, setData] = useState(null);
   const [pending, setPending] = useState(false);
+  const [showCustomerFormModal, setShowCustomerFormModal] = useState(false);
 
   const getData = async (searchTerms) => {
     try {
@@ -51,11 +55,24 @@ function App() {
 
   return (
     <main className="min-vh-100 pt-5 p-4 container-lg">
+      <Button
+        variant="secondary"
+        className="my-3 p-2 d-flex align-items-center"
+        onClick={() => setShowCustomerFormModal(true)}
+      >
+        <AddIconSVG />
+        <span className="px-2">Nuevo cliente</span>
+      </Button>
+
+      <CustomerFormModal
+        show={showCustomerFormModal}
+        onHide={() => setShowCustomerFormModal(false)}
+      />
+
       <SearchForm
         handleSetSearchTerms={handleSetSearchTerms}
         resetSearchTerms={resetSearchTerms}
       />
-
       <section className="pt-5">
         {searchTerms && pending && (
           <div className="text-center">

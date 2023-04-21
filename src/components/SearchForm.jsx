@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Alert from "react-bootstrap/Alert";
-import { SearchSVG } from "../assets/svg/SearchSVG";
+import { SearchIconSVG } from "../assets/svg/SearchIconSVG";
 
 // eslint-disable-next-line react/prop-types
 export function SearchForm({ handleSetSearchTerms, resetSearchTerms }) {
@@ -49,7 +49,7 @@ export function SearchForm({ handleSetSearchTerms, resetSearchTerms }) {
   return (
     <section className="card">
       <div className="card-header d-flex align-items-center">
-        <SearchSVG />
+        <SearchIconSVG />
         <h3 className="pt-2 px-2">Buscar clientes:</h3>
       </div>
 
@@ -110,7 +110,7 @@ export function SearchForm({ handleSetSearchTerms, resetSearchTerms }) {
 
             <Col xs="auto">
               <Button variant="primary" type="submit" className="mt-3">
-                <SearchSVG />
+                <SearchIconSVG />
                 <span className="px-2">Buscar</span>
               </Button>
             </Col>

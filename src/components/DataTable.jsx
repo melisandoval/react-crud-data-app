@@ -2,8 +2,8 @@
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
-import { EditSVG } from "../assets/svg/EditSVG";
-import { DeleteSVG } from "../assets/svg/DeleteSVG";
+import { EditIconSVG } from "../assets/svg/EditIconSVG";
+import { DeleteIconSVG } from "../assets/svg/DeleteIconSVG";
 
 // eslint-disable-next-line react/prop-types
 export function DataTable({ data }) {
@@ -28,10 +28,10 @@ export function DataTable({ data }) {
       <td>{customer.country}</td>
       <td className="d-flex">
         <Button variant="secondary" className="m-1">
-          <EditSVG />
+          <EditIconSVG />
         </Button>
         <Button variant="secondary" className="m-1">
-          <DeleteSVG />
+          <DeleteIconSVG />
         </Button>
       </td>
     </tr>
