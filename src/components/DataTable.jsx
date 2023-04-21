@@ -25,19 +25,22 @@ export function DataTable({ data }) {
       </td>
     </tr>
   ));
+
+  const tableHead = (
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email</th>
+      <th>Empresa</th>
+      <th>País</th>
+      <th>Acciones</th>
+    </tr>
+  );
+
   return (
     <section className="my-5 mx-2">
       <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
-            <th>Empresa</th>
-            <th>País</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
+        <thead>{tableHead}</thead>
         <tbody>{tableData}</tbody>
       </Table>
     </section>
