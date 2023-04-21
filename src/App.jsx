@@ -62,10 +62,10 @@ function App() {
     }
   };
 
-  const handleCustomerFormModalSubmit = () => {
-    console.log("se llama a handleCustomerFormModalSubmit!!");
-    setShowCustomerFormModal(false);
+  const handleCustomerFormModalSubmit = (customerFromForm) => {
+    console.log(customerFromForm);
     setSelectedCustomer(null);
+    setShowCustomerFormModal(false);
   };
 
   const customerModalTitle = "Datos del cliente:";
@@ -84,7 +84,8 @@ function App() {
       <CustomerFormModal
         title={customerModalTitle}
         show={showCustomerFormModal}
-        onHide={handleCustomerFormModalSubmit}
+        onHide={() => setShowCustomerFormModal(false)}
+        handleSubmit={handleCustomerFormModalSubmit}
         customer={selectedCustomer}
       />
 

@@ -205,3 +205,7 @@ export const countryNamesList = [
   "Zambia",
   "Zimbabwe",
 ];
+
+export function checkEmptyProperties(obj) {
+  return Object.values(obj).every((val) => val !== "" && val !== undefined);
+}

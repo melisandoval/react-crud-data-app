@@ -7,25 +7,47 @@ import Row from "react-bootstrap/Row";
 import { useState } from "react";
 import { countryNamesList } from "../utils";
 import { useEffect } from "react";
+import { checkEmptyProperties } from "../utils";
 
 export function CustomerFormModal(props) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [country, setCountry] = useState("");
+  const [customerFromForm, setCustomerFromForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    company: "",
+    country: "",
+  });
+
+  const [validated, setValidated] = useState(false);
+
+  const { title, handleSubmit, customer } = props;
 
   useEffect(() => {
-    console.log(props.customer);
-
-    if (props.customer) {
-      setFirstName(props.customer.firstName);
-      setLastName(props.customer.lastName);
-      setEmail(props.customer.email);
-      setCompany(props.customer.company);
-      setCountry(props.customer.country);
+    if (customer) {
+      setCustomerFromForm({
+        firstName: customer.firstName,
+        lastName: customer.lastName,
+        email: customer.email,
+        company: customer.company,
+        country: customer.country,
+      });
     }
-  }, [props.customer]);
+  }, [customer]);
+
+  const handleFormSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+
+    if (checkEmptyProperties(customerFromForm)) {
+      console.log(checkEmptyProperties(customerFromForm));
+      handleSubmit(customerFromForm);
+    }
+  };
 
   return (
     <Modal
@@ -35,22 +57,31 @@ export function CustomerFormModal(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          {props.title}
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <Form className="px-2 py-3 justify-content-center">
+        <Form
+          noValidate
+          validated={validated}
+          className="px-2 py-3 justify-content-center"
+        >
           <Row className="d-flex justify-content-center justify-content-md-start align-items-center">
             <Col xs="auto">
               <Form.Group className="mb-3" controlId="firstName">
-                <Form.Label>Nombre</Form.Label>
+                <Form.Label>Nombre *</Form.Label>
                 <Form.Control
+                  required
+                  autoFocus
                   type="text"
                   placeholder="Antonio"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  value={customerFromForm.firstName}
+                  onChange={(e) =>
+                    setCustomerFromForm({
+                      ...customerFromForm,
+                      firstName: e.target.value,
+                    })
+                  }
                   autoComplete="off"
                 />
               </Form.Group>
@@ -58,12 +89,18 @@ export function CustomerFormModal(props) {
 
             <Col xs="auto">
               <Form.Group className="mb-3" controlId="lastName">
-                <Form.Label>Apellido</Form.Label>
+                <Form.Label>Apellido *</Form.Label>
                 <Form.Control
+                  required
                   type="text"
                   placeholder="García"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  value={customerFromForm.lastName}
+                  onChange={(e) =>
+                    setCustomerFromForm({
+                      ...customerFromForm,
+                      lastName: e.target.value,
+                    })
+                  }
                   autoComplete="off"
                 />
               </Form.Group>
@@ -71,12 +108,18 @@ export function CustomerFormModal(props) {
 
             <Col xs="auto">
               <Form.Group className="mb-3" controlId="email">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>Email *</Form.Label>
                 <Form.Control
+                  required
                   type="email"
                   placeholder="ejemplo@mail.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={customerFromForm.email}
+                  onChange={(e) =>
+                    setCustomerFromForm({
+                      ...customerFromForm,
+                      email: e.target.value,
+                    })
+                  }
                   autoComplete="off"
                 />
               </Form.Group>
@@ -86,10 +129,16 @@ export function CustomerFormModal(props) {
               <Form.Group className="mb-3" controlId="company">
                 <Form.Label>Empresa</Form.Label>
                 <Form.Control
+                  required
                   type="text"
                   placeholder="Mercadona"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
+                  value={customerFromForm.company}
+                  onChange={(e) =>
+                    setCustomerFromForm({
+                      ...customerFromForm,
+                      company: e.target.value,
+                    })
+                  }
                   autoComplete="off"
                 />
               </Form.Group>
@@ -100,10 +149,15 @@ export function CustomerFormModal(props) {
                 <Form.Label>País</Form.Label>
 
                 <Form.Select
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
+                  value={customerFromForm.country}
+                  onChange={(e) =>
+                    setCustomerFromForm({
+                      ...customerFromForm,
+                      country: e.target.value,
+                    })
+                  }
                 >
-                  <option>Elige el país</option>
+                  <option></option>
                   {countryNamesList.map((countryName, index) => (
                     <option key={index}>{countryName}</option>
                   ))}
@@ -115,7 +169,7 @@ export function CustomerFormModal(props) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button onClick={props.onHide}>Aceptar</Button>
+        <Button onClick={handleFormSubmit}>Aceptar</Button>
       </Modal.Footer>
     </Modal>
   );
