@@ -39,7 +39,7 @@ export function DataTable({ data }) {
 
   return (
     <section className="my-5 mx-2">
-      <Table striped bordered hover>
+      <Table striped bordered hover responsive>
         <thead>{tableHead}</thead>
         <tbody>{tableBody}</tbody>
       </Table>
