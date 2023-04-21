@@ -45,9 +45,16 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerms]);
 
+  const resetSearchTerms = () => {
+    setSearchTerms(null);
+  };
+
   return (
     <main className="min-vh-100 pt-5 p-4 container-lg">
-      <SearchForm handleSetSearchTerms={handleSetSearchTerms} />
+      <SearchForm
+        handleSetSearchTerms={handleSetSearchTerms}
+        resetSearchTerms={resetSearchTerms}
+      />
 
       <section className="pt-5">
         {searchTerms && pending && (

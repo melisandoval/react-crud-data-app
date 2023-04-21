@@ -7,13 +7,22 @@ import Alert from "react-bootstrap/Alert";
 import { SearchSVG } from "../assets/svg/SearchSVG";
 
 // eslint-disable-next-line react/prop-types
-export function SearchForm({ handleSetSearchTerms }) {
+export function SearchForm({ handleSetSearchTerms, resetSearchTerms }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
 
   const [showErrorMsg, setShowErrorMsg] = useState(false);
+
+  const clearInputFields = () => {
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setCompany("");
+
+    resetSearchTerms();
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -103,6 +112,16 @@ export function SearchForm({ handleSetSearchTerms }) {
               <Button variant="primary" type="submit" className="mt-3">
                 <SearchSVG />
                 <span className="px-2">Buscar</span>
+              </Button>
+            </Col>
+
+            <Col xs="auto">
+              <Button
+                variant="dark"
+                className="mt-3"
+                onClick={clearInputFields}
+              >
+                <span className="px-2">Restablecer</span>
               </Button>
             </Col>
           </Row>
