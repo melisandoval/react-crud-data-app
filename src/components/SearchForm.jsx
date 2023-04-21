@@ -27,19 +27,14 @@ export function SearchForm({ handleSetSearchTerms }) {
       return;
     }
 
-    const searchTerms = {
+    const inputsSearchTerms = {
       firstName,
       lastName,
       email,
       company,
     };
 
-    handleSetSearchTerms(searchTerms);
-
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setCompany("");
+    handleSetSearchTerms(inputsSearchTerms);
   };
 
   return (
