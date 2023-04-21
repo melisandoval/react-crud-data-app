@@ -107,7 +107,7 @@ export function SearchForm({ handleSetSearchTerms }) {
             <Col xs="auto">
               <Button variant="primary" type="submit" className="mt-3">
                 <SearchSVG />
-                <span className="ps-1">Search</span>
+                <span className="px-2">Buscar</span>
               </Button>
             </Col>
           </Row>
