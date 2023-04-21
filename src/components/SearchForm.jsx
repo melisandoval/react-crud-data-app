@@ -23,6 +23,8 @@ export function SearchForm({ handleSetSearchTerms }) {
       setTimeout(() => {
         setShowErrorMsg(false);
       }, 2600);
+
+      return;
     }
 
     const searchTerms = {
