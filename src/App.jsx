@@ -16,6 +16,7 @@ function App() {
   const [data, setData] = useState(null);
   const [pending, setPending] = useState(false);
   const [showCustomerFormModal, setShowCustomerFormModal] = useState(false);
+  const [customerId, setCustomerId] = useState(null);
 
   const getData = async (searchTerms) => {
     try {
@@ -53,26 +54,41 @@ function App() {
     setSearchTerms(null);
   };
 
+  const handleShowCustomerFormModal = (id) => {
+    setShowCustomerFormModal(true);
+
+    if (id) {
+      setCustomerId(id);
+    }
+  };
+
+  const handleCustomerFormModalSubmit = () => {
+    console.log("se llama a handleCustomerFormModalSubmit!!");
+    setShowCustomerFormModal(false);
+  };
+
   return (
     <main className="min-vh-100 pt-5 p-4 container-lg">
       <Button
         variant="secondary"
         className="my-3 p-2 d-flex align-items-center"
-        onClick={() => setShowCustomerFormModal(true)}
+        onClick={handleShowCustomerFormModal}
       >
         <AddIconSVG />
         <span className="px-2">Nuevo cliente</span>
       </Button>
 
       <CustomerFormModal
+        title={customerId ? "Editar cliente" : "Datos del nuevo cliente:"}
         show={showCustomerFormModal}
-        onHide={() => setShowCustomerFormModal(false)}
+        onHide={handleCustomerFormModalSubmit}
       />
 
       <SearchForm
         handleSetSearchTerms={handleSetSearchTerms}
         resetSearchTerms={resetSearchTerms}
       />
+
       <section className="pt-5">
         {searchTerms && pending && (
           <div className="text-center">
@@ -87,7 +103,12 @@ function App() {
           </Alert>
         )}
 
-        {searchTerms && data && <DataTable data={data} />}
+        {searchTerms && data && (
+          <DataTable
+            data={data}
+            handleEditRowModal={handleShowCustomerFormModal}
+          />
+        )}
       </section>
     </main>
   );

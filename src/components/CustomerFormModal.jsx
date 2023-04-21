@@ -1,8 +1,19 @@
 /* eslint-disable react/prop-types */
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import { useState } from "react";
+import { countryNamesList } from "../utils";
 
 export function CustomerFormModal(props) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [country, setCountry] = useState("");
+
   return (
     <Modal
       {...props}
@@ -12,21 +23,96 @@ export function CustomerFormModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+          {props.title}
         </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
+        <Form className="px-2 py-3 justify-content-center">
+          <Row className="d-flex justify-content-center justify-content-md-start align-items-center">
+            <Col xs="auto">
+              <Form.Group className="mb-3" controlId="firstName">
+                <Form.Label>Nombre</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Antonio"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  autoComplete="off"
+                />
+              </Form.Group>
+            </Col>
+
+            <Col xs="auto">
+              <Form.Group className="mb-3" controlId="lastName">
+                <Form.Label>Apellido</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="García"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  autoComplete="off"
+                />
+              </Form.Group>
+            </Col>
+
+            <Col xs="auto">
+              <Form.Group className="mb-3" controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="ejemplo@mail.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="off"
+                />
+              </Form.Group>
+            </Col>
+
+            <Col xs="auto">
+              <Form.Group className="mb-3" controlId="company">
+                <Form.Label>Empresa</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Mercadona"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  autoComplete="off"
+                />
+              </Form.Group>
+            </Col>
+
+            <Col xs="auto">
+              <Form.Group className="mb-3" controlId="company">
+                <Form.Label>País</Form.Label>
+                {/* <Form.Control
+                  type="text"
+                  placeholder="España"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  autoComplete="off"
+                /> */}
+
+                <Form.Select
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                >
+                  <option>Elige el país</option>
+                  {/* <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option> */}
+                  {countryNamesList.map((countryName, index) => (
+                    <option key={index}>{countryName}</option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+            </Col>
+          </Row>
+        </Form>
       </Modal.Body>
 
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={props.onHide}>Aceptar</Button>
       </Modal.Footer>
     </Modal>
   );
