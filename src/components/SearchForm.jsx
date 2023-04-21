@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Alert from "react-bootstrap/Alert";
 import { SearchSVG } from "../assets/svg/SearchSVG";
 
 // eslint-disable-next-line react/prop-types
@@ -12,8 +13,17 @@ export function SearchForm({ handleSetSearchTerms }) {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
 
+  const [showErrorMsg, setShowErrorMsg] = useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (!firstName && !lastName && !email && !company) {
+      setShowErrorMsg(true);
+      setTimeout(() => {
+        setShowErrorMsg(false);
+      }, 2600);
+    }
 
     const searchTerms = {
       firstName,
@@ -38,11 +48,7 @@ export function SearchForm({ handleSetSearchTerms }) {
       </div>
 
       <div className="card-body px-md-5">
-        <Form
-          onSubmit={handleSubmit}
-          autoComplete="off"
-          className="py-3 justify-content-center"
-        >
+        <Form onSubmit={handleSubmit} className="py-3 justify-content-center">
           <Row className="d-flex justify-content-center justify-content-md-start align-items-center">
             <Col xs="auto">
               <Form.Group className="mb-3" controlId="firstName">
@@ -52,6 +58,7 @@ export function SearchForm({ handleSetSearchTerms }) {
                   placeholder="Antonio"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
+                  autoComplete="off"
                 />
               </Form.Group>
             </Col>
@@ -64,6 +71,7 @@ export function SearchForm({ handleSetSearchTerms }) {
                   placeholder="García"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
+                  autoComplete="off"
                 />
               </Form.Group>
             </Col>
@@ -76,6 +84,7 @@ export function SearchForm({ handleSetSearchTerms }) {
                   placeholder="ejemplo@mail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="off"
                 />
               </Form.Group>
             </Col>
@@ -88,6 +97,7 @@ export function SearchForm({ handleSetSearchTerms }) {
                   placeholder="Mercadona"
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
+                  autoComplete="off"
                 />
               </Form.Group>
             </Col>
@@ -100,6 +110,12 @@ export function SearchForm({ handleSetSearchTerms }) {
             </Col>
           </Row>
         </Form>
+
+        {showErrorMsg && (
+          <Alert variant="primary">
+            Por favor ingresa al menos un término de búsqueda.
+          </Alert>
+        )}
       </div>
     </section>
   );
