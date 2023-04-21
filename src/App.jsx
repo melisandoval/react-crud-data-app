@@ -5,6 +5,7 @@ import { SearchForm } from "./components/SearchForm";
 import { DataTable } from "./components/DataTable";
 import { getCustomers } from "./supabaseAPI";
 import { useEffect } from "react";
+import Alert from "react-bootstrap/Alert";
 
 function App() {
   const [searchTerms, setSearchTerms] = useState(null);
@@ -44,19 +45,21 @@ function App() {
   }, [searchTerms]);
 
   return (
-    <main className="p-4 container-lg">
+    <main className="min-vh-100 pt-5 p-4 container-lg">
       <SearchForm handleSetSearchTerms={handleSetSearchTerms} />
 
-      {searchTerms && pending && <p>Pending...</p>}
+      <section className="pt-5">
+        {searchTerms && pending && <p>Pending...</p>}
 
-      {searchTerms && !pending && !data && (
-        <p>
-          Lo sentimos, no hemos encontrado ningún registro que coincida con el
-          término de búsqueda indicado.
-        </p>
-      )}
+        {searchTerms && !pending && !data && (
+          <Alert variant="light" className="text-center">
+            Lo sentimos, no hemos encontrado ningún registro que coincida con el
+            término de búsqueda indicado.
+          </Alert>
+        )}
 
-      {searchTerms && data && <DataTable data={data} />}
+        {searchTerms && data && <DataTable data={data} />}
+      </section>
     </main>
   );
 }

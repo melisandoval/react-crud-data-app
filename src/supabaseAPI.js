@@ -3,7 +3,7 @@ import { supabase } from "./supabaseConfig";
 export const getCustomers = async (searchTerms) => {
   let query = supabase
     .from("customers")
-    .select("id, first, last, email, company");
+    .select("id, first, last, email, company, country");
 
   const { firstName, lastName, email, company } = searchTerms;
 
@@ -24,6 +24,5 @@ export const getCustomers = async (searchTerms) => {
   }
 
   const { data, error } = await query;
-
   return { data, error };
 };
