@@ -39,6 +39,7 @@ export const countryNamesList = [
   "Chile",
   "China",
   "Colombia",
+  "Comoros",
   "Congo",
   "Cook Islands",
   "Costa Rica",

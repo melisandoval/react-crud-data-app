@@ -6,7 +6,7 @@ import { EditIconSVG } from "../assets/svg/EditIconSVG";
 import { DeleteIconSVG } from "../assets/svg/DeleteIconSVG";
 
 // eslint-disable-next-line react/prop-types
-export function DataTable({ data, handleEditCustomer }) {
+export function DataTable({ data, handleEditCustomer, handleDeleteCustomer }) {
   const tableHead = (
     <tr>
       <th>Nombre</th>
@@ -46,7 +46,13 @@ export function DataTable({ data, handleEditCustomer }) {
           >
             <EditIconSVG />
           </Button>
-          <Button variant="secondary" className="m-1">
+          <Button
+            variant="secondary"
+            className="m-1"
+            onClick={() => {
+              handleDeleteCustomer(customer);
+            }}
+          >
             <DeleteIconSVG />
           </Button>
         </td>

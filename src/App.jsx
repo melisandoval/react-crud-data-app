@@ -10,6 +10,7 @@ import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
 import { AddIconSVG } from "./assets/svg/AddIconSVG";
 import { CustomerFormModal } from "./components/CustomerFormModal";
+import { ConfirmationModal } from "./components/ConfirmationModal";
 
 function App() {
   const [searchTerms, setSearchTerms] = useState(null);
@@ -17,6 +18,7 @@ function App() {
   const [pending, setPending] = useState(false);
   const [showCustomerFormModal, setShowCustomerFormModal] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   const getData = async (searchTerms) => {
     try {
@@ -63,13 +65,51 @@ function App() {
   };
 
   const handleCustomerFormModalSubmit = (customerFromForm) => {
+    // Supabase ofrece la posibilidad de Upsert data (TO-DO: probar).
+    // Si upsert es posible remover la condición siguiente y hacer una sola llamada
+    // para insertar nuevo registro o editar registro en lugar de dos diferentes:
     if (customerFromForm.id) {
-      console.log(`Cliente editado es: ${JSON.stringify(customerFromForm)}`);
+      try {
+        // TO-DO: llamar a supabase para editar un registro de la tabla.
+        // Si no hay error:
+        console.log(`Cliente editado es: ${JSON.stringify(customerFromForm)}`);
+        // si Supabase devuelve un error lanzar error al catch.
+      } catch (error) {
+        console.log(error);
+      }
     } else {
-      console.log(`Cliente nuevo es ${JSON.stringify(customerFromForm)}`);
+      try {
+        //TO-DO: llamar a Supabase para crear un registro nuevo.
+        // Si no hay error:
+        console.log(`Cliente nuevo es ${JSON.stringify(customerFromForm)}`);
+        // si Supabase devuelve un error lanzar error al catch.
+      } catch (error) {
+        console.log(error);
+      }
     }
     setShowCustomerFormModal(false);
     setSelectedCustomer(null);
+  };
+
+  const handleShowConfirmationModal = (customer) => {
+    setShowConfirmationModal(true);
+    setSelectedCustomer(customer);
+  };
+
+  const handleDeleteCustomer = () => {
+    if (selectedCustomer) {
+      try {
+        // TO-DO: llamar a Supabase para eliminar el registro que tenga el id de selectedCustomer.
+        // Si Supabase no devuelve un error:
+        console.log(
+          `El cliente con id ${selectedCustomer.id}, nombre ${selectedCustomer.firstName} y apellido ${selectedCustomer.lastName} ha sido borrado`
+        );
+        // si Supabase devuelve un error lanzar error al catch.
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    setShowConfirmationModal(false);
   };
 
   const customerModalTitle = "Datos del cliente:";
@@ -91,6 +131,12 @@ function App() {
         onHide={() => setShowCustomerFormModal(false)}
         handleSubmit={handleCustomerFormModalSubmit}
         customer={selectedCustomer}
+      />
+
+      <ConfirmationModal
+        show={showConfirmationModal}
+        onHide={() => setShowConfirmationModal(false)}
+        handleDeleteCustomer={handleDeleteCustomer}
       />
 
       <SearchForm
@@ -116,6 +162,7 @@ function App() {
           <DataTable
             data={data}
             handleEditCustomer={handleShowCustomerFormModal}
+            handleDeleteCustomer={handleShowConfirmationModal}
           />
         )}
       </section>

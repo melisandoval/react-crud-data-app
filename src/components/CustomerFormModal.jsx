@@ -17,13 +17,13 @@ const INITIAL_INPUTS_VALUE = {
   country: "",
 };
 
-export function CustomerFormModal(props) {
+export function CustomerFormModal({ handleSubmit, ...props }) {
   const [customerFromForm, setCustomerFromForm] =
     useState(INITIAL_INPUTS_VALUE);
 
   const [validated, setValidated] = useState(false);
 
-  const { title, handleSubmit, customer } = props;
+  const { title, customer } = props;
 
   useEffect(() => {
     setValidated(false);
