@@ -59,13 +59,17 @@ function App() {
 
     if (customer) {
       setSelectedCustomer(customer);
-    }
+    } else setSelectedCustomer(null);
   };
 
   const handleCustomerFormModalSubmit = (customerFromForm) => {
-    console.log(customerFromForm);
-    setSelectedCustomer(null);
+    if (customerFromForm.id) {
+      console.log(`Cliente editado es: ${JSON.stringify(customerFromForm)}`);
+    } else {
+      console.log(`Cliente nuevo es ${JSON.stringify(customerFromForm)}`);
+    }
     setShowCustomerFormModal(false);
+    setSelectedCustomer(null);
   };
 
   const customerModalTitle = "Datos del cliente:";

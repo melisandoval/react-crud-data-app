@@ -9,29 +9,42 @@ import { countryNamesList } from "../utils";
 import { useEffect } from "react";
 import { checkEmptyProperties } from "../utils";
 
+const INITIAL_INPUTS_VALUE = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  company: "",
+  country: "",
+};
+
 export function CustomerFormModal(props) {
-  const [customerFromForm, setCustomerFromForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    company: "",
-    country: "",
-  });
+  const [customerFromForm, setCustomerFromForm] =
+    useState(INITIAL_INPUTS_VALUE);
 
   const [validated, setValidated] = useState(false);
 
   const { title, handleSubmit, customer } = props;
 
   useEffect(() => {
+    setValidated(false);
+
     if (customer) {
-      setCustomerFromForm({
+      const customerDetails = {
+        ...customerFromForm,
         firstName: customer.firstName,
         lastName: customer.lastName,
         email: customer.email,
         company: customer.company,
         country: customer.country,
-      });
+      };
+
+      if (customer.id) {
+        customerDetails.id = customer.id;
+      }
+
+      setCustomerFromForm(customerDetails);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customer]);
 
   const handleFormSubmit = (event) => {
@@ -44,9 +57,15 @@ export function CustomerFormModal(props) {
     setValidated(true);
 
     if (checkEmptyProperties(customerFromForm)) {
-      console.log(checkEmptyProperties(customerFromForm));
       handleSubmit(customerFromForm);
     }
+
+    setCustomerFromForm(INITIAL_INPUTS_VALUE);
+  };
+
+  const handleClose = () => {
+    setValidated(false);
+    setCustomerFromForm(INITIAL_INPUTS_VALUE);
   };
 
   return (
@@ -56,7 +75,7 @@ export function CustomerFormModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton onHide={handleClose}>
         <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>
       </Modal.Header>
 
@@ -127,7 +146,7 @@ export function CustomerFormModal(props) {
 
             <Col xs="auto">
               <Form.Group className="mb-3" controlId="company">
-                <Form.Label>Empresa</Form.Label>
+                <Form.Label>Empresa *</Form.Label>
                 <Form.Control
                   required
                   type="text"
