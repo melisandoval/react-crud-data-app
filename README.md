@@ -8,7 +8,7 @@ Realizada con:
 - [React Bootstrap](https://react-bootstrap.netlify.app/)
 - [Supabase](https://supabase.com/)\*
 
-* La base de datos fue creada en [Supabase]() con los datos del archivo customers.json.
+* La base de datos fue creada en [Supabase]() con los datos del archivo `customers.json`.
 
 ## Versión en vivo:
 
