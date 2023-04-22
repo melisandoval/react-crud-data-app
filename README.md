@@ -1,6 +1,18 @@
 # React CRUD data app
 
-[Breve descripción del proyecto.]
+Pequeña aplicación CRUD que permite leer, editar, y borrar registros de una base de datos de clientes y crear nuevos clientes.
+
+Realizada con:
+
+- [React](https://es.react.dev/)
+- [React Bootstrap](https://react-bootstrap.netlify.app/)
+- [Supabase](https://supabase.com/)\*
+
+* La base de datos fue creada en [Supabase]() con los datos del archivo customers.json.
+
+## Versión en vivo:
+
+https://react-crud-data-app-melisandoval.vercel.app/
 
 ## Cómo ejecutar este proyecto
 
@@ -18,5 +30,3 @@ Antes de poder ejecutar el proyecto, es necesario que tengas instalado [Node.js]
 
 - Ejecuta `npm run dev` para iniciar el servidor de desarrollo.
 - Abre en tu navegador el link de `http://localhost:[puerto]` que te indica la terminal para ver la aplicación en funcionamiento.
-
-## Versión en vivo:
