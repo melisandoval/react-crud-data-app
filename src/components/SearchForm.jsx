@@ -12,7 +12,6 @@ export function SearchForm({ handleSetSearchTerms, resetSearchTerms }) {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
-
   const [showErrorMsg, setShowErrorMsg] = useState(false);
 
   const clearInputFields = () => {
